@@ -1,0 +1,47 @@
+{
+  "name": "aNoty",
+  "description": "An lightweight customizable JavaScript notification system.",
+  "version": "0.1.0",
+  "homepage": "https://anoty.kinkii.org/",
+  "main": "dist/aNoty.js",
+  "author": "TrueOrFalse.Yuan <trueorfalse.yuan@gmail.com>",
+  "contributors": [],
+  "maintainers": [],
+  "keywords": [
+    "noty",
+    "notifications"
+  ],
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": "TrueOrFalseYuan@github.com/TrueOrFalseYuan/aNoty.git",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-cssnano": "^2.1.1",
+    "gulp-eslint": "^2.0.0",
+    "gulp-file-insert": "^1.0.2",
+    "gulp-prefix": "0.0.14",
+    "gulp-qunit": "^1.2.1",
+    "gulp-sass": "^2.2.0",
+    "gulp-size": "^1.3.0",
+    "gulp-uglify": "^1.5.3",
+    
+    "karma": "^0.13.10",
+    "karma-jasmine": "^0.3.7",
+    "karma-browserify": "^4.4.2",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-coverage": "^0.5.5",
+    "karma-coveralls": "^1.1.2",
+    
+    "jasmine-core": "^2.3.4",
+    "run-sequence": "^1.1.2"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrueOrFalseYuan/aNoty/issues",
+    "email": "trueorfalse.yuan@gmail.com"
+  }
+}

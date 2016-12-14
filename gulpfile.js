@@ -32,8 +32,8 @@ gulp.task("js", function () {
     return gulp
         .src(p("src/aNoty.js"))
         .pipe(insert({"/* style.css */": "dist/aNoty.css"}))
-        //.pipe(uglify({ outSourceMap: false }))
-        //.pipe(size({ gzip: true, showFiles: true }))
+        .pipe(uglify({ outSourceMap: false }))
+        .pipe(size({ gzip: true, showFiles: true }))
         .pipe(gulp.dest(p("dist")))
         .pipe(connect.reload());
 });

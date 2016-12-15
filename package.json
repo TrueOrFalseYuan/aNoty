@@ -12,6 +12,8 @@
     "notifications"
   ],
   "scripts": {
+    "ci": "gulp",
+    "build": "gulp build",
     "test": "gulp test"
   },
   "repository": "TrueOrFalseYuan@github.com/TrueOrFalseYuan/aNoty.git",
@@ -34,7 +36,6 @@
     "karma-browserify": "^4.4.2",
     "karma-chrome-launcher": "^0.2.0",
     "karma-coverage": "^0.5.5",
-    "karma-coveralls": "^1.1.2",
     
     "jasmine-core": "^2.3.4",
     "run-sequence": "^1.1.2"

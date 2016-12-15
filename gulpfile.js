@@ -49,12 +49,14 @@ gulp.task("lint", function() {
 gulp.task("karma", function (done) {
     new karma({
         configFile: __dirname + "/karma.conf.js"
-    }, done).start();
+    }, function() {
+        done();
+    }).start();
 });
 
 gulp.task("connect", function() {
     connect.server({
-        root: "website",
+        root: "dist",
         livereload: true,
         port: 3000
     });

@@ -54,10 +54,10 @@ var aNoty = function() {
         hide: function(el) {
             el.classList.remove("show");
             el.classList.add("hide");
-            el.addEventListener("transitionend", removeEl);
+            el.addEventListener("transitionend", removeEle);
 
             // Fallback for no transitions.
-            setTimeout(removeEl(el), A_NOTY_TRANSITION_DURATION);
+            setTimeout(removeEle(el), A_NOTY_TRANSITION_DURATION);
         },
 
         /**

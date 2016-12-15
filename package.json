@@ -1,6 +1,6 @@
 {
   "name": "aNoty",
-  "description": "An lightweight customizable JavaScript notification system.",
+  "description": "An lightweight customizable JavaScript notification component.",
   "version": "0.1.0",
   "homepage": "https://anoty.kinkii.org/",
   "main": "dist/aNoty.js",

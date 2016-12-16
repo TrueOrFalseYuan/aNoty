@@ -22,7 +22,7 @@ gulp.task("css", function() {
       .src(p("src/aNoty.scss"))
       .pipe(sass())
       .pipe(autoprefixer("last 8 version", {cascade: true}))
-      .pipe(cssnano())
+      .pipe(cssnano({ zindex: false }))
       .pipe(size({ gzip: true, showFiles: true }))
       .pipe(gulp.dest(p("dist")))
       .pipe(connect.reload());

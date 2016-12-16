@@ -6,8 +6,9 @@ $danger-color: rgba(244, 67, 54, .8);
 $default-color: rgba(0, 0, 0, .8);
 $text-color: #fff;
 $border-radius: 0px;
+
 .an-container {
-    position: absolute;
+    position: fixed;
     z-index: 99999;
     > div {
         position: relative;
@@ -23,13 +24,13 @@ $border-radius: 0px;
             color: $text-color;
             background: $default-color;
         }
-        &.default {
+        &.an-default {
             background: $default-color;
         }
-        &.error {
+        &.an-error {
             background: $danger-color;
         }
-        &.success {
+        &.an-success {
             background: $success-color;
         }
     }
@@ -39,81 +40,81 @@ $border-radius: 0px;
 .an-container {
     > div {
         &,
-        &.hide {
+        &.an-hide {
             max-height: 0;
             margin: 0;
             padding: 0;
             opacity: 0;
             pointer-events: none;
         }
-        &.show {
+        &.an-show {
             max-height: none;
             padding: $padding-base $padding-base * 2;
             opacity: 1;
             pointer-events: auto;
         }
     }
-    &.top {
+    &.an-top {
         top: $padding-base * 2;
         > div {
-            &.show {
+            &.an-show {
                 margin-bottom: $padding-base;
             }
         }
     }
-    &.middle {
+    &.an-middle {
         top: 50%;
         transform: translateY(-50%);
         > div {
-            &.show {
+            &.an-show {
                 margin: $padding-base / 2 0;
             }
         }
     }
-    &.bottom {
+    &.an-bottom {
         bottom: $padding-base * 2;
         > div {
-            &.show {
+            &.an-show {
                 margin-top: $padding-base;
             }
         }
     }
-    &.top,
-    &.middle,
-    &.bottom {
-        &:not(.left):not(.right) {
+    &.an-top,
+    &.an-middle,
+    &.an-bottom {
+        &:not(.an-left):not(.an-right) {
             left: 50%;
             transform: translateX(-50%);
-            &:not(.center) {
+            &:not(.an-center) {
                 width: 80%;
             }
             > div {
                 text-align: center;
                 &,
-                &.hide {
+                &.an-hide {
                     transform: scale(0.01);
                 }
-                &.show {
+                &.an-show {
                     transform: scale(1);
                 }
             }
         }
     }
     // All left positions.
-    &.left {
+    &.an-left {
         left: $padding-base * 2;
         > div {
             float: left;
             &,
-            &.hide {
+            &.an-hide {
                 transform: translateX(-200%) scale(0.01);
             }
-            &.show {
+            &.an-show {
                 transform: translateX(0) scale(1);
             }
         }
     }
-    &.center {
+    &.an-center {
         left: 50%;
         transform: translateX(-50%);
         > div {
@@ -121,15 +122,15 @@ $border-radius: 0px;
             text-align: center;
         }
     }
-    &.right {
+    &.an-right {
         right: $padding-base * 2;
         > div {
             float: right;
             &,
-            &.hide {
+            &.an-hide {
                 transform: translateX(200%) scale(0.01);
             }
-            &.show {
+            &.an-show {
                 transform: translateX(0) scale(1);
             }
         }

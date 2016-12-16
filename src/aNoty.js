@@ -4,6 +4,7 @@ var aNoty = function() {
     var A_NOTY_TRANSITION_DURATION = 500;
     var A_NOTY_ID_PREFIX = "a-noty-";
     var A_NOTY_STYLE_ID = "a-noty-style";
+    var A_NOTY_CLASS_PREFIX = "an-";
 
     var _version = "0.1.0";
     var _id = A_NOTY_ID_PREFIX + aNoty.prototype.ID++;
@@ -18,10 +19,40 @@ var aNoty = function() {
         position: "top left"
     };
 
-    var removeEle = function(ele) {
+    var removeElement = function(ele) {
         if (ele && ele.parentNode) {
             ele.parentNode.removeChild(ele);
         }
+    };
+
+    var attachEventListener = function(ele, evt, method) {
+        if (ele.addEventListener) {
+            ele.addEventListener(evt, method);
+        } else if (ele.attachEvent) {
+            ele.attachEvent("on" + evt, method);
+        }
+    };
+
+    var getAllNoties = function(p) {
+        var noties = new Array();
+        var children = p.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeType == 1 && children[i].tagName.toLowerCase() == "div") {
+                noties.push(children[i]);
+            }
+        }
+        return noties;
+    };
+
+    var getPositionClasses = function(pos) {
+        if (!pos) {
+            return "";
+        }
+        var arr = pos.split(" ");
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = A_NOTY_CLASS_PREFIX + arr[i];
+        }
+        return arr.join(" ");
     };
     /**
      * private object
@@ -44,29 +75,30 @@ var aNoty = function() {
          */
         reset: function() {
             this.set(_default);
-            var ele = document.querySelector("#" + _id);
-            if(ele){
-                removeEle(ele);
+            var ele = document.getElementById(_id);
+            if (ele) {
+                removeElement(ele);
             }
         },
 
 
         hide: function(el) {
-            el.classList.remove("show");
-            el.classList.add("hide");
-            el.addEventListener("transitionend", removeEle);
+            el.classList.remove(A_NOTY_CLASS_PREFIX + "show");
+            el.classList.add(A_NOTY_CLASS_PREFIX + "hide");
+            attachEventListener(el, "transitionend", removeElement);
 
             // Fallback for no transitions.
-            setTimeout(removeEle(el), A_NOTY_TRANSITION_DURATION);
+            setTimeout(function() {
+                removeElement(el);
+            }, A_NOTY_TRANSITION_DURATION);
         },
 
         /**
          * Add new notification
-         * If a type is passed, a class name "{type}" will get added.
          * This allows for custom look and feel for various types of notifications.
          */
         show: function(message, type, click) {
-            var existing = document.querySelectorAll("#" + _id + " > div");
+            var existing = getAllNoties(this.getContainer());
             if (existing) {
                 var diff = existing.length - this.max;
                 if (diff >= 0) {
@@ -77,7 +109,7 @@ var aNoty = function() {
             }
 
             var noty = document.createElement("div");
-            noty.className = (type || "default");
+            noty.className = A_NOTY_CLASS_PREFIX + (type || "default");
             if (this.template) {
                 noty.innerHTML = this.template(message);
             } else {
@@ -88,11 +120,11 @@ var aNoty = function() {
 
             // Add the click handler, if specified.
             if ("function" === typeof click) {
-                noty.addEventListener("click", click);
+                attachEventListener(noty, "click", click);
             }
 
             setTimeout(function() {
-                noty.className += " show";
+                noty.classList.add(A_NOTY_CLASS_PREFIX + "show");
             }, 10);
 
             this.close(noty, this.delay);
@@ -103,7 +135,7 @@ var aNoty = function() {
          */
         close: function(el, wait) {
             if (this.closeOnClick) {
-                el.addEventListener("click", function() {
+                attachEventListener(el, "click", function() {
                     _noty.hide(el);
                 });
             }
@@ -118,7 +150,7 @@ var aNoty = function() {
         },
 
         injectCSS: function() {
-            if (!document.querySelector("#" + A_NOTY_STYLE_ID)) {
+            if (!document.getElementById(A_NOTY_STYLE_ID)) {
                 var head = document.getElementsByTagName("head")[0];
                 var css = document.createElement("style");
                 css.type = "text/css";
@@ -129,7 +161,7 @@ var aNoty = function() {
         },
 
         removeCSS: function() {
-            var css = document.querySelector("#" + A_NOTY_STYLE_ID);
+            var css = document.getElementById(A_NOTY_STYLE_ID);
             if (css && css.parentNode) {
                 css.parentNode.removeChild(css);
             }
@@ -137,11 +169,26 @@ var aNoty = function() {
 
         getParent: function() {
             var t = this.parent;
-            return "string" == typeof t ? document.querySelector(t) : "object" == typeof t ? t : void 0;
+            if ("string" == typeof t) {
+                if (document.querySelector) {
+                    t = document.querySelector(t);
+                } else {
+                    t = document.getElementById(t);
+                    if (!t) {
+                        t = document.getElementsByTagName(t)[0];
+                    }
+                }
+                this.parent = t;
+            }
+            if ("object" == typeof t) {
+                return t;
+            } else {
+                return;
+            }
         },
 
         getContainer: function() {
-            var container = document.querySelector("#" + _id);
+            var container = document.getElementById(_id);
             if (!container) {
                 container = document.createElement("div");
                 container.id = _id;
@@ -156,7 +203,7 @@ var aNoty = function() {
                 }
                 this.getParent().appendChild(container);
             }
-            container.className = this.containerClass + " " + this.position;
+            container.className = this.containerClass + " " + getPositionClasses(this.position);
             return container;
         },
 
@@ -203,9 +250,9 @@ var aNoty = function() {
         },
         parent: function(elem) {
             _noty.parent = elem;
-            var ele = document.querySelector("#" + _id);
-            if(ele){
-                removeEle(ele);
+            var ele = document.getElementById(_id);
+            if (ele) {
+                removeElement(ele);
             }
             return this;
         },

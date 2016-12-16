@@ -30,7 +30,7 @@ describe("Setting Unit Tests", function() {
         expect(_$aNoty.closeOnClick).toBe(false);
 
         document.body.appendChild(elContainer);
-        notify.parent("#testing");
+        notify.parent(elContainer);
         expect(_$aNoty.getParent().id).toBe("testing");
 
         notify.position("bottom");
